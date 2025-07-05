@@ -65,3 +65,19 @@ if [[ ! -d "$SOURCE" ]]; then
     exit 2
 fi
 mkdir -p "$DEST"
+
+# === پیدا کردن فایل‌ها ===
+CONFIG_FILE="backup.conf"
+echo "🔍 جستجوی فایل‌ها..."
+find "$SOURCE" -type f -name "*.$FORMAT" > "$CONFIG_FILE"
+
+if [[ ! -s "$CONFIG_FILE" ]]; then
+    notify "⚠️ فایل .$FORMAT یافت نشد."
+    exit 3
+fi
+
+if [[ $DRY_RUN -eq 1 ]]; then
+    echo "🔹 DRY-RUN: فایل‌هایی که بکاپ خواهند شد:"
+    cat "$CONFIG_FILE"
+    exit 0
+fi
