@@ -57,3 +57,11 @@ if [[ -z "$SOURCE" || -z "$FORMAT" || -z "$DEST" || -z "$DAYS" ]]; then
     show_help
     exit 1
 fi
+
+
+# === بررسی وجود مسیرها ===
+if [[ ! -d "$SOURCE" ]]; then
+    notify "❌ مسیر مبدأ وجود ندارد: $SOURCE"
+    exit 2
+fi
+mkdir -p "$DEST"
