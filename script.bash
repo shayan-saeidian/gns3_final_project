@@ -117,7 +117,7 @@ notify "✅ بکاپ با موفقیت انجام شد.\nفایل: $BACKUP_PATH\
 
 # === حذف بکاپ‌های قدیمی ===
 echo "🧹 حذف بکاپ‌های قدیمی..."
-find "$DEST" -
+find "$DEST" -type f \( -name "backup_*.tar.gz" -o -name "backup_*.tar.gz.gpg" \) -mtime +$DAYS -exec rm -v {} \; >> "$LOG_FILE"
 
 # === ارسال ایمیل ===
 if [[ -n "$EMAIL" ]]; then
