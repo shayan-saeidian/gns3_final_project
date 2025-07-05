@@ -50,3 +50,10 @@ while [[ $# -gt 0 ]]; do
         *) echo "خطا: آرگومان نامعتبر $1"; show_help; exit 1 ;;
     esac
 done
+
+# === بررسی مقادیر ضروری ===
+if [[ -z "$SOURCE" || -z "$FORMAT" || -z "$DEST" || -z "$DAYS" ]]; then
+    echo "❌ مقادیر ضروری وارد نشده‌اند."
+    show_help
+    exit 1
+fi
