@@ -81,3 +81,30 @@ if [[ $DRY_RUN -eq 1 ]]; then
     cat "$CONFIG_FILE"
     exit 0
 fi
+
+# === تهیه بکاپ ===
+BACKUP_NAME="backup_$DATE.tar.gz"
+BACKUP_PATH="$DEST/$BACKUP_NAME"
+START=$(date +%s)
+
+echo "📦 در حال فشرده‌سازی..."
+tar -czf "$BACKUP_PATH" -T "$CONFIG_FILE"
+
+if [[ $ENCRYPT -eq 1 ]]; then
+    echo "🔐 رمزگذاری فعال است."
+    echo -n "رمز عبور را وارد کنید: "
+    read -s PASS
+    echo
+    echo "$PASS" | gpg --batch --yes --passphrase-fd 0 -c "$BACKUP_PATH"
+    if [[ $? -eq 0 ]]; then
+        rm "$BACKUP_PATH"
+        BACKUP_PATH="$BACKUP_PATH.gpg"
+    else
+        notify "❌ خطا در رمزگذاری."
+        exit 4
+    fi
+fi
+
+END=$(date +%s)
+DURATION=$((END - START))
+SIZE=$(du -h "$BACKUP_PATH" | cut -f1)
