@@ -108,3 +108,9 @@ fi
 END=$(date +%s)
 DURATION=$((END - START))
 SIZE=$(du -h "$BACKUP_PATH" | cut -f1)
+
+
+# === ثبت گزارش ===
+LOG_FILE="$DEST/backup.log"
+echo "✅ [$DATE] SUCCESS: $BACKUP_PATH ($SIZE) - ${DURATION}s" >> "$LOG_FILE"
+notify "✅ بکاپ با موفقیت انجام شد.\nفایل: $BACKUP_PATH\nحجم: $SIZE\nزمان: ${DURATION}s"
