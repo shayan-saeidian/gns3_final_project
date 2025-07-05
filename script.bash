@@ -128,5 +128,4 @@ if [[ -n "$EMAIL" ]]; then
         notify "⚠️ دستور mail نصب نشده، ایمیل ارسال نشد."
     fi
 fi
-
 exit 0
