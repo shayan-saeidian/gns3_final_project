@@ -27,3 +27,26 @@ notify() {
         notify-send "Backup Notification" "$message"
     fi
 }
+
+# === آرگومان‌ها ===
+SOURCE=""
+FORMAT=""
+DEST=""
+DAYS=""
+DRY_RUN=0
+ENCRYPT=0
+EMAIL=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --source) SOURCE="$2"; shift 2 ;;
+        --format) FORMAT="$2"; shift 2 ;;
+        --dest) DEST="$2"; shift 2 ;;
+        --days) DAYS="$2"; shift 2 ;;
+        --dry-run) DRY_RUN=1; shift ;;
+        --encrypt) ENCRYPT=1; shift ;;
+        --email) EMAIL="$2"; shift 2 ;;
+        -h|--help) show_help; exit 0 ;;
+        *) echo "خطا: آرگومان نامعتبر $1"; show_help; exit 1 ;;
+    esac
+done
