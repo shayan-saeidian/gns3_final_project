@@ -18,3 +18,12 @@ show_help() {
     echo "  --email EMAIL     ارسال گزارش به ایمیل"
     echo "  -h, --help        نمایش این راهنما"
 }
+
+# === نوتیفیکیشن ===
+notify() {
+    local message="$1"
+    echo -e "\n=== Notification ===\n$message\n==================="
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "Backup Notification" "$message"
+    fi
+}
